@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Video Player</title>
+</head>
+<body>
+
+    <header>
+        <h1>Custom Vidoe Player</h1>
+    </header>
+
+    <div class="player">
+        <video src="./assets/videos/sopno jabe bari.mp4"></video>
+
+
+        <div class="playerTools">
+            <div class="playButton">
+                <button title="play/pause"><i class="fa-solid fa-play"></i></button>
+            </div>
+
+            <div class="skipsBtn">
+                <button id="backVid"><i class="fa-solid fa-angles-left"></i></button>
+                <button id="fordVid"><i class="fa-solid fa-angles-right"></i></button>
+            </div>
+
+            <div class="volume">
+                <input type="range" min="0" max="100" value="20" title="volume">
+            </div>
+    
+            <div class="videoTime">
+
+                <p><span id="currMin">00</span> : <span id="currSec">00</span> </p>
+
+                <p><span id="videoMin">00</span> : <span id="videoSec">00</span></p>
+
+            </div>
+    
+            <div class="videoProgress">
+                
+                <input type="range" class="progressBar" value="0">
+            </div>
+        </div>
+    </div>
+    
+    
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
