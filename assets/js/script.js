@@ -5,6 +5,15 @@ const playIconToggle = document.querySelector('.fa-play')
 const videoProgressBarElm = document.querySelector('.videoProgress input')
 const videoCurrTimeElm = document.querySelector('#videoLeftTime')
 const volumeElm = document.querySelector('.volume')
+const playIconElm = document.querySelector('.playIcn')
+const pauseIcnElm = document.querySelector('.pauseIcn')
+const playPauseBtnElm = document.querySelector('.playButton button')
+const screenResElm = document.querySelector('#fullScr button')
+const vidExpBtnElm = document.querySelector('.vidExpBtn')
+const vidMinElm = document.querySelector('.vidComBtn')
+
+volumeElm.value = 20 
+videoElm.volume = volumeElm.value / 100 
 
 
 
@@ -12,18 +21,23 @@ volumeElm.addEventListener('change', e => {
     let videoVol = e.target.value / 100
     videoVolume(videoVol)
 })
-// video play button toggle
-
-// console.log(videoElm);
-
-
-volumeElm.value = 20 
-videoElm.volume = volumeElm.value / 100 
-
 
 function videoVolume(vol){
     videoElm.volume = vol
 }
+
+vidExpBtnElm.addEventListener('click', () => {
+    playerElm.classList.toggle('playerToggle')
+    vidExpBtnElm.style.display = 'none'
+    vidMinElm.style.display = 'block'
+})
+
+vidMinElm.addEventListener('click', () => {
+    playerElm.classList.toggle('playerToggle')
+    vidExpBtnElm.style.display = 'block'
+    vidMinElm.style.display = 'none'
+})
+
 
 function videoPlayToggle(){
     if(videoElm.paused){
@@ -32,8 +46,10 @@ function videoPlayToggle(){
         setInterval(() => {
             videoCurrTime()
         }, 1000);
+        playPauseBtnElm.innerHTML = `<i class="fa-solid fa-pause pauseIcn"></i>`
     }else{
         videoElm.pause()
+        playPauseBtnElm.innerHTML = `<i class="fa-solid fa-play playIcn"></i>`
     }
 }
 
