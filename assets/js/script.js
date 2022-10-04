@@ -12,8 +12,46 @@ const screenResElm = document.querySelector('#fullScr button')
 const vidExpBtnElm = document.querySelector('.vidExpBtn')
 const vidMinElm = document.querySelector('.vidComBtn')
 
-volumeElm.value = 20 
-videoElm.volume = volumeElm.value / 100 
+const videoUploadElm = document.querySelector('.videoUpdload input')
+const videoUpForm = document.querySelector('.videoUpdload form')
+
+const videoUrlFormElm = document.querySelector('#urlForm')
+const vidoeUrlInputElm = document.querySelector('#urlInput')
+
+
+
+
+videoUploadElm.addEventListener('input', e => {
+    e.preventDefault()
+    const file = videoUploadElm.files[0]
+
+    const reader = new FileReader()
+
+    reader.readAsArrayBuffer(file)
+    let fileType = file.type.split('/')[1]
+
+    reader.addEventListener('load', e => {
+        let buffer = e.target.result
+
+        console.log(buffer);
+
+        let blob = new Blob([new Uint8Array(buffer)], {
+            type: 'video/*'
+        })
+        let url = window.URL.createObjectURL(blob)
+
+        videoElm.src = url
+        document.querySelector('.downPl button a').href = url + '.' + fileType
+
+    })
+})
+
+
+
+
+
+volumeElm.value = 20
+videoElm.volume = volumeElm.value / 100
 
 
 
@@ -22,7 +60,7 @@ volumeElm.addEventListener('change', e => {
     videoVolume(videoVol)
 })
 
-function videoVolume(vol){
+function videoVolume(vol) {
     videoElm.volume = vol
 }
 
@@ -39,21 +77,21 @@ vidMinElm.addEventListener('click', () => {
 })
 
 
-function videoPlayToggle(){
-    if(videoElm.paused){
+function videoPlayToggle() {
+    if (videoElm.paused) {
         videoElm.play()
         videoDuration()
         setInterval(() => {
             videoCurrTime()
         }, 1000);
         playPauseBtnElm.innerHTML = `<i class="fa-solid fa-pause pauseIcn"></i>`
-    }else{
+    } else {
         videoElm.pause()
         playPauseBtnElm.innerHTML = `<i class="fa-solid fa-play playIcn"></i>`
     }
 }
 
-function vidoeCurrTIme(){
+function vidoeCurrTIme() {
     // videoCurrTimeElm.innerHTML = Math.floor(videoElm.currentTime)
 
     videoElm.currentTime += 5
@@ -61,7 +99,7 @@ function vidoeCurrTIme(){
     console.log(Math.floor(videoElm.duration));
 }
 
-function videoDuration(){
+function videoDuration() {
     const videoSec = Math.floor(videoElm.duration)
     let videoMin = Math.floor(videoSec / 60)
     let videoRemSec = Math.floor(videoSec % 60)
@@ -69,12 +107,12 @@ function videoDuration(){
     videoProgressBarElm.setAttribute('min', 0)
     videoProgressBarElm.setAttribute('max', videoSec)
 
-    if(videoMin < 10){
-        videoMin = '0'+videoMin
+    if (videoMin < 10) {
+        videoMin = '0' + videoMin
     }
 
-    if(videoRemSec < 10){
-        videoRemSec = '0'+videoRemSec
+    if (videoRemSec < 10) {
+        videoRemSec = '0' + videoRemSec
     }
 
     document.querySelector('#videoMin').textContent = videoMin
@@ -82,7 +120,7 @@ function videoDuration(){
     document.querySelector('#videoSec').innerHTML = videoRemSec
 }
 
-function videoCurrTime(){
+function videoCurrTime() {
 
     let videoCurrTime = Math.floor(videoElm.currentTime)
 
@@ -92,12 +130,12 @@ function videoCurrTime(){
     let currMin = Math.floor(videoCurrTime / 60)
     let currSec = Math.floor(videoCurrTime % 60)
 
-    if(currMin < 10){
-        currMin = '0'+currMin
+    if (currMin < 10) {
+        currMin = '0' + currMin
     }
 
-    if(currSec < 10){
-        currSec = '0'+currSec
+    if (currSec < 10) {
+        currSec = '0' + currSec
     }
 
     document.querySelector('#currMin').textContent = currMin
@@ -107,23 +145,23 @@ function videoCurrTime(){
 }
 
 
-function skipVide(){
+function skipVide() {
     document.querySelector('#backVid').addEventListener('click', () => {
         let vidDur = Math.floor(videoElm.currentTime)
 
-        if(vidDur < 0){
+        if (vidDur < 0) {
             vidDur = 0
         }
-        videoElm.currentTime = vidDur-5
+        videoElm.currentTime = vidDur - 5
     })
 
     document.querySelector('#fordVid').addEventListener('click', () => {
         let vidDur = Math.floor(videoElm.currentTime)
 
-        if(vidDur > videoElm.currentTime){
+        if (vidDur > videoElm.currentTime) {
             vidDur = 0
         }
-        videoElm.currentTime = vidDur+5
+        videoElm.currentTime = vidDur + 5
     })
 }
 
@@ -131,7 +169,7 @@ skipVide()
 
 playBtnToggleElm.addEventListener('click', () => {
     videoPlayToggle()
-    
+
 })
 
 videoProgressBarElm.addEventListener('change', e => {
